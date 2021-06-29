@@ -1,35 +1,24 @@
 package main
 //
 //import (
-//"fmt"
-//"github.com/btcsuite/btcutil/hdkeychain"
-//"github.com/ethereum/go-ethereum/crypto"
+//	"fmt"
+//	"github.com/btcsuite/btcutil/hdkeychain"
 //)
 //
 //func main() {
-//	extendedKey, _ := hdkeychain.NewKeyFromString("xprvA1pqm2imDm4ggksV27rBygcqqgJL4umijYvE2aFteyxhV7AVLTAGV8a9HTz88opMGeRasJQqX75U8tgGuHGZLB3TVuUyV2Qj8dcsnmAPX3j")
+//	extKey, _ := hdkeychain.NewKeyFromString("xpub6DubSqbhBUXSF4h3dnE9hgw93qxs7nfrLBc9i2DGwvMKEnpX4Uq9m5btyrTJeMQvS4TeziJBQfiMYoHdAjVGPnEX746rLAXrVWHs5odYNGq")
 //
-//	// This gives the path: m/44H
-//	acc44H, _ := extendedKey.Child(44)
+//	path := []uint32{ 44, 60,  0, 0 , 0};
 //
-//	// This gives the path: m/44H/60H
-//	acc44H60H, _ := acc44H.Child(60)
+//	for _, childNum := range path {
+//		extKey, _ = extKey.Derive(childNum)
+//	}
 //
-//	// This gives the path: m/44H/60H/0H
-//	acc44H60H0H, _ := acc44H60H.Child( 0)
+//	btcecPrivKey, _ := extKey.ECPrivKey()
+//	privateKey := btcecPrivKey.ToECDSA()
 //
-//	// This gives the path: m/44H/60H/0H/0
-//	acc44H60H0H0, _ := acc44H60H0H.Child(0)
+//	//path := "m/44H/60H/0H/0/0"
 //
-//	// This gives the path: m/44H/60H/0H/0/0
-//	acc44H60H0H00, _ := acc44H60H0H0.Child(0)
-//
-//	publicKey, _ := acc44H60H0H00.ECPubKey()
-//
-//	pub := publicKey.ToECDSA()
-//
-//	path := "m/44H/60H/0H/0/0"
-//
-//	fmt.Printf("%s:%s \n", path, crypto.PubkeyToAddress(*pub))
+//	fmt.Printf("%s:%s \n", path, privateKey)
 //}
 //
