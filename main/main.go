@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/jbenet/go-base58"
 	"github.com/tyler-smith/go-bip32"
 	"github.com/tyler-smith/go-bip39"
@@ -43,14 +44,21 @@ func main() {
 	for i := 0; i < 5; i++ {
 		// Get private key by BIP44 Extended Private Key
 		priKeyBIP44, _ := bip44ExtendedPrivateKey.NewChildKey(uint32(i))
-		priKeyDecode:= base58.Decode(priKeyBIP44.String())
+		priKeyDecode := base58.Decode(priKeyBIP44.String())
 		privateKey := priKeyDecode[46:78]
 
 		// Get public key by BIP44 Extended Private Key
 		pubKey, _ := bip44ExtendedPublicKey.NewChildKey(uint32(i))
 
+		// Get address
+		publicKeyString := hex.EncodeToString(pubKey.Key);
+		publicKeyBytes, _ := hex.DecodeString(publicKeyString)
+		ecdsaPub, _ := crypto.DecompressPubkey(publicKeyBytes);
+		// To address
+		EthAddress := crypto.PubkeyToAddress(*ecdsaPub).String()
+
 		// print
-		fmt.Printf("Path : m/44'/60'/0'/0/%d, public key: 0x%s, private key : 0x%s\n",
-			i, hex.EncodeToString(pubKey.Key), hex.EncodeToString(privateKey))
+		fmt.Printf("Path : m/44'/60'/0'/0/%d,address : %s, public key: 0x%s, private key : 0x%s\n",
+			i, EthAddress, hex.EncodeToString(pubKey.Key), hex.EncodeToString(privateKey))
 	}
 }
